@@ -1,4 +1,0 @@
-nexaai
-numpy
-scikit-learn
-pillow

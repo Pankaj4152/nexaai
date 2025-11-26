@@ -1,4 +1,11 @@
 .env
 __pycache__/
-test_images/
 test_images_batch/
+extra/
+logs/
+*.log
+image_database.json
+
+*.jpg
+*.png
+*.jpeg
