@@ -61,6 +61,7 @@ def search_flow():
 
         for r in results:
             print(f"[{r['score']:.4f}] {r['path']}")
+            print(f"    Description: {r['description'][:100]}...")
         print()
 
 

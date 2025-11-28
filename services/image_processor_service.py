@@ -2,6 +2,8 @@ from typing import Optional, Dict, List
 from pathlib import Path
 import time
 
+from tqdm import tqdm
+
 from services.vlm_service import VLMService
 from services.embedder_service import EmbedderService
 
@@ -46,7 +48,7 @@ class ImageProcessorService:
         description = self.vlm.generate_description(image_path)
         if not description:
             logger.error(f"Failed to generate description for {image_name}")
-            return None
+            return None 
 
         # Step 2: Generate embedding
         embedding = self.embedder.encode(description)
@@ -69,12 +71,15 @@ class ImageProcessorService:
     def process_images(self, image_paths: List[str]) -> List[Dict]:
         results = []
 
-        for idx, path in enumerate(image_paths, start=1):
-            logger.info(f"[{idx}/{len(image_paths)}] Starting: {path}")
+        with tqdm(total=len(image_paths), desc="Processing images", unit="img") as pbar:
+            for idx, path in enumerate(image_paths, start=1):
+                pbar.set_description(f"Processing {Path(path).name}")
+                # logger.info(f"[{idx}/{len(image_paths)}] Starting: {path}")
 
-            result = self.process_image(path)
-            if result:
-                results.append(result)
+                result = self.process_image(path)
+                if result:
+                    results.append(result)
+                pbar.update(1)
 
         logger.info(f"Batch processing completed: {len(results)}/{len(image_paths)} successful")
 
