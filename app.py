@@ -15,6 +15,7 @@ logger = get_logger(__name__)
 def process_images_flow():
     folder = input("Enter image folder path: ").strip()
     logger.info(f"Processing flow started for folder: {folder}")
+    start = time.time()
 
     image_paths = scan_image_folder(folder)
     if not image_paths:
@@ -46,7 +47,7 @@ def process_images_flow():
         return
 
     if append_to_database(results):
-        logger.info(f"Database updated → {config.db_path}")
+        logger.info(f"Database updated -> {config.db_path}")
         print(f"Database saved to: {config.db_path}")
     else:
         logger.error("Failed to update database.")

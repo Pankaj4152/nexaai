@@ -30,7 +30,7 @@ class VLMService:
             m_cfg = ModelConfig(n_gpu_layers=config.gpu_layers)
             logger.debug(f"ModelConfig: {m_cfg}")
 
-            logger.debug(f"Paths → Model: {config.vlm_model_path}, mmproj: {config.mmproj_path}")
+            logger.debug(f"Paths -> Model: {config.vlm_model_path}, mmproj: {config.mmproj_path}")
             
             self.vlm = VLM.from_(
                 name_or_path=config.vlm_model_path,

@@ -43,7 +43,7 @@ class Config(BaseSettings):
     allowed_extensions: List[str] = [".jpg", ".jpeg", ".png"]
     
     # Logging (INFO, DEBUG, WARNING, ERROR)
-    log_level: str = "INFO"
+    log_level: str = "DEBUG"
 
     # class Config:
     #     env_file = ".env"

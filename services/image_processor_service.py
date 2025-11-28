@@ -95,7 +95,7 @@ class ImageProcessorService:
         with tqdm(total=len(image_paths), desc="Processing images", unit="img") as pbar:
             for idx, path in enumerate(image_paths, start=1):
                 pbar.set_description(f"Processing {Path(path).name}")
-                logger.debug(f"Batch step {idx}/{len(image_paths)} → {path}")
+                logger.debug(f"Batch step {idx}/{len(image_paths)} -> {path}")
 
                 result = self.process_image(path)
                 if result:
@@ -105,5 +105,5 @@ class ImageProcessorService:
                     logger.warning(f"Failed to process: {path}")
                 pbar.update(1)
 
-        logger.info(f"Batch processing completed → {len(results)}/{len(image_paths)} successful")
+        logger.info(f"Batch processing completed -> {len(results)}/{len(image_paths)} successful")
         return results

@@ -98,7 +98,8 @@ def valid_db_record(record: Dict[str, Any]) -> bool:
     
     # Ensure filename field exists and is not empty
     if "filename" not in record or record["filename"] is None or record["filename"]=="":
-        logger.info(f"Record missing filename → auto-assigning from path: {record['path']}")
+        logger.info(f"Record missing filename -> auto-assigning from path: {record['path']}")
+
         record["filename"]=extract_filename_from_path(record["path"])
 
     
