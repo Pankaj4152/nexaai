@@ -3,8 +3,8 @@ from services.embedder_service import EmbedderService
 from services.image_processor_service import ImageProcessorService
 
 from search.search_engine import SearchEngine
-from utils.file_utils import scan_image_folder
-from utils.json_db import save_database, load_database
+from utils.file_utils import scan_image_folder, filter_existing_images, fetch_processed_images_paths
+from utils.json_db import save_database, load_database, append_to_database
 
 from config import config
 
@@ -21,13 +21,19 @@ def process_images_flow():
     embedder = EmbedderService()
     processor = ImageProcessorService(vlm, embedder)
 
-    results = processor.process_images(image_paths)
+    # filter images which has not been processed yet
+    existing_db = load_database()
+    # processed_images = fetch_processed_images_paths(existing_db)
+    filtered_image_paths = filter_existing_images(image_paths, existing_db)
+
+
+    results = processor.process_images(filtered_image_paths)
 
     if not results:
         print("No images processed.")
         return
 
-    if save_database(results):
+    if append_to_database(results):
         print(f"Database saved to: {config.db_path}")
     else:
         print("Failed to save database.")
